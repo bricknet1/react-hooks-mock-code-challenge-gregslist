@@ -5,6 +5,7 @@ import ListingsContainer from "./ListingsContainer";
 function App() {
 
   const [listings, setListings] = useState([])
+  const [isSorted, setIsSorted] = useState(false);
 
   function handleDeleteItem(deletedId){
     const updatedListings = listings.filter(listing => {
@@ -21,6 +22,26 @@ function App() {
     setListings(searchedListings)
   }
 
+  function handleSort() {
+    setIsSorted(!isSorted);
+  }
+
+  let sortedListings;
+
+  if (isSorted) {
+    sortedListings = listings.sort((a, b) => {
+      if (a.location.toLowerCase() < b.location.toLowerCase()) {
+        return -1;
+      } else if (a.location.toLowerCase() > b.location.toLowerCase()) {
+        return 1;
+      } else {
+        return 0;
+      }})
+    } else {
+      sortedListings = listings;
+      }
+  
+
   useEffect(()=>{
     fetch('http://localhost:6001/listings')
     .then(res => res.json())
@@ -30,8 +51,8 @@ function App() {
 
   return (
     <div className="app">
-      <Header onSearch={handleSearch}/>
-      <ListingsContainer listings={listings} onDeleteItem={handleDeleteItem} />
+      <Header onSearch={handleSearch} onSort={handleSort}/>
+      <ListingsContainer listings={sortedListings} onDeleteItem={handleDeleteItem} />
     </div>
   );
 }
