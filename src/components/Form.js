@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function Form() {
+function Form({onSubmit}) {
     const formObject = {
         description: "",
         location: "",
@@ -20,8 +20,13 @@ function Form() {
 
     }
 
+    function handleSubmit(e){
+        e.preventDefault();
+        onSubmit(formInput)
+    }
+
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <label>
                 Description:
                 <input type="text" name="description" value={formInput.description} onChange={handleInput}/>

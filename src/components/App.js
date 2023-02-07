@@ -42,6 +42,17 @@ function App() {
       sortedListings = listings;
       }
   
+  function handleSubmit(formInput){
+    fetch('http://localhost:6001/listings', {
+      method: 'POST',
+      headers: {
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify(formInput)
+    })
+    .then(res => res.json())
+    .then(data => setListings([...listings, data]))
+  }
 
   useEffect(()=>{
     fetch('http://localhost:6001/listings')
@@ -53,7 +64,7 @@ function App() {
   return (
     <div className="app">
       <Header onSearch={handleSearch} onSort={handleSort}/>
-      <Form />
+      <Form onSubmit={handleSubmit}/>
       <ListingsContainer listings={sortedListings} onDeleteItem={handleDeleteItem} />
     </div>
   );
