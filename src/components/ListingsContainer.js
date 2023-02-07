@@ -1,10 +1,10 @@
 import React from "react";
 import ListingCard from "./ListingCard";
 
-function ListingsContainer({listings}) {
+function ListingsContainer({listings, onDeleteItem}) {
 
   const listingsMap = listings.map((listing) => {
-    return <ListingCard key={listing.id} {...listing} />
+    return <ListingCard key={listing.id} {...listing} onDeleteItem={onDeleteItem} />
   })
 
   return (
