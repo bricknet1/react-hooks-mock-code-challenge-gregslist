@@ -13,6 +13,14 @@ function App() {
     setListings(updatedListings);
   }
 
+  function handleSearch (search){
+    const searchedListings = listings.filter((listing) => {
+      const name = listing.description;
+      return name.includes(search);
+    })
+    setListings(searchedListings)
+  }
+
   useEffect(()=>{
     fetch('http://localhost:6001/listings')
     .then(res => res.json())
@@ -22,7 +30,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header onSearch={handleSearch}/>
       <ListingsContainer listings={listings} onDeleteItem={handleDeleteItem} />
     </div>
   );
