@@ -1,6 +1,7 @@
 import React from "react";
 import Search from "./Search";
 
+
 function Header({onSearch, onSort}) {
   return (
     <header>

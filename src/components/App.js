@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Header from "./Header";
 import ListingsContainer from "./ListingsContainer";
+import Form from "./Form";
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
   return (
     <div className="app">
       <Header onSearch={handleSearch} onSort={handleSort}/>
+      <Form />
       <ListingsContainer listings={sortedListings} onDeleteItem={handleDeleteItem} />
     </div>
   );
