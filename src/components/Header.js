@@ -11,7 +11,7 @@ function Header({onSearch, onSort}) {
         </span>
         gregslist
       </h1>
-      <Search onSearch={onSearch}/>
+      <Search onSearch={onSearch} />
       <button onClick={onSort}>Sort!</button>
     </header>
   );

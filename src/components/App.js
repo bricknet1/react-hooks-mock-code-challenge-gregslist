@@ -8,6 +8,15 @@ function App() {
   const [listings, setListings] = useState([])
   const [isSorted, setIsSorted] = useState(false);
 
+  const [searchTerm, setSearchTerm] = useState('')
+
+  function handleSearchSubmit(searchBar) {
+    setSearchTerm(searchBar)
+  }
+
+  const searchedListings = listings.filter((listing) => listing.description.toLowerCase().includes(searchTerm.toLowerCase()))
+
+
   function handleDeleteItem(deletedId){
     const updatedListings = listings.filter(listing => {
       return listing.id !== deletedId
@@ -15,32 +24,24 @@ function App() {
     setListings(updatedListings);
   }
 
-  function handleSearch (search){
-    const searchedListings = listings.filter((listing) => {
-      const name = listing.description;
-      return name.includes(search);
-    })
-    setListings(searchedListings)
-  }
-
   function handleSort() {
     setIsSorted(!isSorted);
   }
 
-  let sortedListings;
+  // let sortedListings;
 
-  if (isSorted) {
-    sortedListings = listings.sort((a, b) => {
-      if (a.location.toLowerCase() < b.location.toLowerCase()) {
-        return -1;
-      } else if (a.location.toLowerCase() > b.location.toLowerCase()) {
-        return 1;
-      } else {
-        return 0;
-      }})
-    } else {
-      sortedListings = listings;
-      }
+  // if (isSorted) {
+  //   sortedListings = listings.sort((a, b) => {
+  //     if (a.location.toLowerCase() < b.location.toLowerCase()) {
+  //       return -1;
+  //     } else if (a.location.toLowerCase() > b.location.toLowerCase()) {
+  //       return 1;
+  //     } else {
+  //       return 0;
+  //     }})
+  //   } else {
+  //     sortedListings = listings;
+  //     }
   
   function handleSubmit(formInput){
     fetch('http://localhost:6001/listings', {
@@ -63,9 +64,9 @@ function App() {
 
   return (
     <div className="app">
-      <Header onSearch={handleSearch} onSort={handleSort}/>
+      <Header onSearch={handleSearchSubmit} searchTerm={searchTerm} setSearchTerm={setSearchTerm} onSort={handleSort}/>
       <Form onSubmit={handleSubmit}/>
-      <ListingsContainer listings={sortedListings} onDeleteItem={handleDeleteItem} />
+      <ListingsContainer listings={searchedListings} onDeleteItem={handleDeleteItem} />
     </div>
   );
 }
