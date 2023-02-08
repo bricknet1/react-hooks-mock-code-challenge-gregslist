@@ -28,20 +28,21 @@ function App() {
     setIsSorted(!isSorted);
   }
 
-  // let sortedListings;
+  // .sort() sorts in place and returns a reference to the SAME array, now sorted. This was changing state.
+  // I initialized sortedListings to be a copy of listings with (...) instead.
+  let sortedListings = [...listings]
+  
+  // I think we'll need to handle switching between sorted and unsorted listings elsewhere, so I removed the extra layer of conditionality we had here.
+  // (It was making my head hurt to try and read anyway.)
+  sortedListings.sort((a, b) => {
+    if (a.location.toLowerCase() < b.location.toLowerCase()) {
+      return -1;
+    } else if (a.location.toLowerCase() > b.location.toLowerCase()) {
+      return 1;
+    } else {
+      return 0;
+    }});
 
-  // if (isSorted) {
-  //   sortedListings = listings.sort((a, b) => {
-  //     if (a.location.toLowerCase() < b.location.toLowerCase()) {
-  //       return -1;
-  //     } else if (a.location.toLowerCase() > b.location.toLowerCase()) {
-  //       return 1;
-  //     } else {
-  //       return 0;
-  //     }})
-  //   } else {
-  //     sortedListings = listings;
-  //     }
   
   function handleSubmit(formInput){
     fetch('http://localhost:6001/listings', {
