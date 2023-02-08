@@ -62,10 +62,11 @@ function App() {
     .then(data => setListings(data))
   }, [])
 
-  // passing in sortedListings as an additional prop in ListingsContainer.
+  // passing in sortedListings and isSorted as additional props in ListingsContainer.
+  // passing in isSorted as additional prop in Header.
   return (
     <div className="app">
-      <Header onSearch={handleSearchSubmit} searchTerm={searchTerm} setSearchTerm={setSearchTerm} onSort={handleSort}/>
+      <Header onSearch={handleSearchSubmit} searchTerm={searchTerm} setSearchTerm={setSearchTerm} isSorted={isSorted} onSort={handleSort}/>
       <Form onSubmit={handleSubmit}/>
       <ListingsContainer listings={searchedListings} isSorted={isSorted} sortedListings={sortedListings} onDeleteItem={handleDeleteItem} />
     </div>

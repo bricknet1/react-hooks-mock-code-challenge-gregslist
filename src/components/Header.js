@@ -2,7 +2,16 @@ import React from "react";
 import Search from "./Search";
 
 
-function Header({onSearch, onSort}) {
+function Header({onSearch, isSorted, onSort}) {
+  
+  let buttonText;
+
+  if (isSorted) {
+    buttonText = "Unsort"
+  } else {
+    buttonText = "Sort"
+  }
+  
   return (
     <header>
       <h1>
@@ -12,7 +21,7 @@ function Header({onSearch, onSort}) {
         gregslist
       </h1>
       <Search onSearch={onSearch} />
-      <button onClick={onSort}>Sort!</button>
+      <button onClick={onSort}>{buttonText}</button>
     </header>
   );
 }
