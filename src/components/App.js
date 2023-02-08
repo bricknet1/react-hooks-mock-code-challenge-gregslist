@@ -30,7 +30,7 @@ function App() {
 
   // .sort() sorts in place and returns a reference to the SAME array, now sorted. This was changing state.
   // I initialized sortedListings to be a copy of listings with (...) instead.
-  let sortedListings = [...listings]
+  let sortedListings = [...searchedListings]
   
   // I think we'll need to handle switching between sorted and unsorted listings elsewhere, so I removed the extra layer of conditionality we had here.
   // (It was making my head hurt to try and read anyway.)
@@ -42,6 +42,8 @@ function App() {
     } else {
       return 0;
     }});
+    console.log(searchedListings);
+    console.log(sortedListings);
 
   
   function handleSubmit(formInput){
