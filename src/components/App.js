@@ -29,7 +29,7 @@ function App() {
   }
 
   // .sort() sorts in place and returns a reference to the SAME array, now sorted. This was changing state.
-  // I initialized sortedListings to be a copy of listings with (...) instead.
+  // I initialized sortedListings to be a copy of searchedListings with (...) instead.
   let sortedListings = [...searchedListings]
   
   // I think we'll need to handle switching between sorted and unsorted listings elsewhere, so I removed the extra layer of conditionality we had here.
@@ -42,8 +42,6 @@ function App() {
     } else {
       return 0;
     }});
-    console.log(searchedListings);
-    console.log(sortedListings);
 
   
   function handleSubmit(formInput){
@@ -64,12 +62,12 @@ function App() {
     .then(data => setListings(data))
   }, [])
 
-
+  // passing in sortedListings as an additional prop in ListingsContainer.
   return (
     <div className="app">
       <Header onSearch={handleSearchSubmit} searchTerm={searchTerm} setSearchTerm={setSearchTerm} onSort={handleSort}/>
       <Form onSubmit={handleSubmit}/>
-      <ListingsContainer listings={searchedListings} onDeleteItem={handleDeleteItem} />
+      <ListingsContainer listings={searchedListings} isSorted={isSorted} sortedListings={sortedListings} onDeleteItem={handleDeleteItem} />
     </div>
   );
 }
